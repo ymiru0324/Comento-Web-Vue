@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.comento.dto.CodeRequest;
+import com.comento.dto.NoticeRequest;
 import com.comento.repository.CodeRepository;
-import com.comento.vo.CodeVO;
+import com.comento.repository.NoticeRepository;
+import com.comento.vo.CodeInfoVO;
+import com.comento.vo.CodeListVO;
+import com.comento.vo.NoticeVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +27,11 @@ public class CodeService {
 	@Autowired
 	CodeRepository repository;
 
-	public List<CodeVO> selectTest(CodeRequest reqeust){
-		return repository.selectTest(reqeust);
+	public List<CodeInfoVO> selectCodeInfo(CodeRequest reqeust){
+		return repository.selectCodeInfo(reqeust);
+	}
+	
+	public List<CodeListVO> selectCodeList(CodeRequest.detail reqeust){
+		return repository.selectCodeList(reqeust);
 	}
 }

@@ -13,6 +13,5 @@
     <mappers>
         <mapper resource="mapper/NoticeMapper.xml"/>
         <mapper resource="mapper/CodeMapper.xml"/>
-        <mapper resource="mapper/CodeListMapper.xml"/>
     </mappers>
 </configuration>

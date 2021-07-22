@@ -3,8 +3,31 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.comento.repository.CodeRepository">
-	<select id="selectTest" parameterType="com.comento.dto.CodeRequest" resultType="code">
-		SELECT * 
-		FROM COMM_INFO
+	<select id="selectCodeInfo" parameterType="com.comento.dto.CodeRequest" resultType="codeInfo">
+		SELECT COMM_CD_ID
+		      ,COMM_CD_NM
+		      ,COMM_CD_ENG
+		      ,CD_SORT
+		      ,CD_USE_YN
+		      ,CONN_1_CD
+		      ,CONN_2_CD
+		      ,CONN_3_CD
+		  FROM COMM_INFO 
+		 WHERE COMM_CD_NM LIKE CONCAT('%', #{codeNm}, '%')
+	</select>
+	
+	<select id="selectCodeList" parameterType="com.comento.dto.CodeRequest$detail" resultType="codeList">
+		SELECT COMM_CD_ID
+		      ,CD_ID
+		      ,CD_NM
+		      ,CD_ENG
+		      ,CD_SORT
+		      ,CD_USE_YN
+		      ,CONN_1_CD
+		      ,CONN_2_CD
+		      ,CONN_3_CD
+		  FROM COMM_CODE
+		 WHERE COMM_CD_ID = #{commCdId}
+		   AND CD_NM LIKE CONCAT('%', #{codeNm}, '%')
 	</select>
 </mapper>

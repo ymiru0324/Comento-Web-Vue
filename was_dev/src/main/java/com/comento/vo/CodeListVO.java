@@ -8,9 +8,8 @@ import lombok.Data;
 @Alias("codelist")
 public class CodeListVO {
 	private String commCdId;
-	private String cdId;
-	private String cdNm;
-	private String cdEng;
+	private String commCdNm;
+	private String commCdEng;
 	private String cdSort;
 	private String cdUseYn;
 	private String conn1Cd;

@@ -10,9 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.comento.dto.CodeRequest;
 import com.comento.dto.CodeResponse;
+import com.comento.dto.NoticeRequest;
 import com.comento.service.CodeService;
+import com.comento.service.NoticeService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @RequestMapping("/code")
 public class CodeController {
 	
@@ -21,9 +26,20 @@ public class CodeController {
 	
 	@RequestMapping("selectCodeInfo")
 	@CrossOrigin
-	public ResponseEntity<?> selectTest(@RequestBody CodeRequest reqeust) throws Exception {
+	public ResponseEntity<?> selectCodeInfo(@RequestBody CodeRequest reqeust) throws Exception {
+		log.debug("test");
+		log.info("test");
+		log.error("log");
 		CodeResponse data = new CodeResponse();
-		data.setList(service.selectTest(reqeust));
+		data.setList(service.selectCodeInfo(reqeust));
+		return new ResponseEntity(data, HttpStatus.OK);
+	}
+	
+	@RequestMapping("selectCodeList")
+	@CrossOrigin
+	public ResponseEntity<?> selectCodeList(@RequestBody CodeRequest.detail reqeust) throws Exception {
+		CodeResponse.CodeListResponse data = new CodeResponse.CodeListResponse();
+		data.setList(service.selectCodeList(reqeust));
 		return new ResponseEntity(data, HttpStatus.OK);
 	}
 }

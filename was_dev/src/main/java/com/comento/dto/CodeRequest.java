@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class CodeRequest {
-	private String title;
-	private String statCd;
+	private String codeNm;
 	
 	@Data
 	public static class detail {
-		private String seqNo;
+		private String codeNm;
+		private String commCdId;
 	}
 }
