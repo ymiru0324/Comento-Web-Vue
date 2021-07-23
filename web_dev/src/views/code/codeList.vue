@@ -1,91 +1,115 @@
 <template>
   <div>
     <layout/>
-    <div class="divLeft">
-      <input type="text" class="searchInput" v-model="form.codeNm" placeholder="코드명" style="display:table-cell;width:90%"/>
-      <input class="searchBtn" type="button" @click="doList" value="조회"/>
+    <br>
+    <div class="divLeft" style="text-align:center;">
+      <el-input v-model="form.codeNm" placeholder="코드명" style="width:90%"></el-input>
+      <el-button @click="doList" type="primary">조회</el-button>
     </div>
-    <div class="mt10" style="height:300px;overflow-y: scroll;overflow-x: auto;">
-      <div style="text-align:left">
+
+    <el-card class="mt10">
+      <div slot="header" class="clearfix" style="text-align:left">
         <span>대표코드</span>
       </div>
-      <table style="width:100%" class="mt10">
-        <colgroup>
-          <col width="10%">
-          <col width="20%">
-          <col width="20%">
-          <col width="10%">
-          <col width="10%">
-          <col width="10%">
-          <col width="10%">
-          <col width="10%">
-        </colgroup>
-        <thead>
-          <td scope="col">코드</td>
-          <td scope="col">코드명</td>
-          <td scope="col">코드영문명</td>
-          <td scope="col">코드순서</td>
-          <td scope="col">사용여부</td>
-          <td scope="col">연결코드1</td>
-          <td scope="col">연결코드2</td>
-          <td scope="col">연결코드3</td>
-        </thead>
-        <tbody>
-          <tr v-for="item in codeInfoList" :key="item.commCdId" @click="doDetailList(item)">
-            <td>{{item.commCdId}}</td>
-            <td>{{item.commCdNm}}</td>
-            <td>{{item.commCdEng}}</td>
-            <td>{{item.cdSort}}</td>
-            <td>{{item.cdUseYn}}</td>
-            <td>{{item.conn1Cd}}</td>
-            <td>{{item.conn2Cd}}</td>
-            <td>{{item.conn3Cd}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="mt10" style="overflow-y: scroll;overflow-x: auto;">
-      <div style="text-align:left">
+      <el-row type="flex">
+        <el-table :data="codeInfoList" border highlight-current-row @row-click="doDetailList" style="margin:0 auto; width:100%; height:300;">
+          <el-table-column align="center" label="코드" width="150">
+            <template slot-scope="scope">
+                  {{scope.row.commCdId}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드명" width="200">
+            <template slot-scope="scope">
+                  {{scope.row.commCdNm}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드영문명" width="250">
+            <template slot-scope="scope">
+                  {{scope.row.commCdEng}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드순서" width="250">
+            <template slot-scope="scope">
+                  {{scope.row.cdSort}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="사용여부" width="150">
+            <template slot-scope="scope">
+                  {{scope.row.cdUseYn}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="연결코드1" width="140">
+            <template slot-scope="scope">
+                  {{scope.row.conn1Cd}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="연결코드2" width="140">
+            <template slot-scope="scope">
+                  {{scope.row.conn2Cd}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="연결코드3" width="140">
+            <template slot-scope="scope">
+                  {{scope.row.conn3Cd}}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-row>
+    </el-card>
+    <el-card class="mt10">
+      <div slot="header" class="clearfix" style="text-align:left">
         <span>상세코드</span>
       </div>
-      <table style="width:100%" class="mt10">
-        <colgroup>
-          <col width="10%">
-          <col width="5%">
-          <col width="20%">
-          <col width="15%">
-          <col width="10%">
-          <col width="10%">
-          <col width="10%">
-          <col width="10%">
-          <col width="10%">
-        </colgroup>
-        <thead>
-          <td scope="col">대표코드</td>
-          <td scope="col">코드</td>
-          <td scope="col">코드명</td>
-          <td scope="col">코드영문명</td>
-          <td scope="col">코드순서</td>
-          <td scope="col">사용여부</td>
-          <td scope="col">연결코드1</td>
-          <td scope="col">연결코드2</td>
-          <td scope="col">연결코드3</td>
-        </thead>
-        <tbody>
-          <tr v-for="item in codeList" :key="item.cdId">
-            <td>{{item.commCdId}}</td>
-            <td>{{item.cdId}}</td>
-            <td>{{item.cdNm}}</td>
-            <td>{{item.cdEng}}</td>
-            <td>{{item.cdSort}}</td>
-            <td>{{item.cdUseYn}}</td>
-            <td>{{item.conn1Cd}}</td>
-            <td>{{item.conn2Cd}}</td>
-            <td>{{item.conn3Cd}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <el-row type="flex">
+        <el-table :data="codeList" border highlight-current-row style="margin:0 auto; width:100%;" height="500">
+          <el-table-column align="center" label="대표코드" width="150">
+            <template slot-scope="scope">
+                  {{scope.row.commCdId}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드" width="150">
+            <template slot-scope="scope">
+                  {{scope.row.cdId}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드명" width="200">
+            <template slot-scope="scope">
+                  {{scope.row.cdNm}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드영문명" width="250">
+            <template slot-scope="scope">
+                  {{scope.row.cdEng}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="코드순서" width="250">
+            <template slot-scope="scope">
+                  {{scope.row.cdSort}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="사용여부" width="150">
+            <template slot-scope="scope">
+                  {{scope.row.cdUseYn}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="연결코드1" width="140">
+            <template slot-scope="scope">
+                  {{scope.row.conn1Cd}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="연결코드2" width="140">
+            <template slot-scope="scope">
+                  {{scope.row.conn2Cd}}
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="연결코드3" width="140">
+            <template slot-scope="scope">
+                  {{scope.row.conn3Cd}}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
@@ -106,7 +130,7 @@ export default {
         commCdId: ''
       },
       codeInfoList: [],
-      codeList: {}
+      codeList: []
     }
   },
   methods: {
